@@ -27,8 +27,10 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+
 # Create the main app
 app = FastAPI(title="Mikombo Park API")
+app = FastAPI(title="Park Mikombo API")
 api_router = APIRouter(prefix="/api")
 
 # Security
@@ -46,6 +48,7 @@ UPLOADS_DIR.mkdir(exist_ok=True)
 (UPLOADS_DIR / "animaux").mkdir(exist_ok=True)
 
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+app.mount("/api/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
 # Enums
 class UserRole(str, Enum):
